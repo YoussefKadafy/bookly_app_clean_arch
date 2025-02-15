@@ -1,3 +1,4 @@
+import 'package:bookly_app_clean_arch/consts.dart';
 import 'package:bookly_app_clean_arch/core/utils/go_router.dart';
 import 'package:flutter/material.dart';
 
@@ -12,7 +13,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
+      debugShowCheckedModeBanner: false,
       routerConfig: AppRouter.goRouter,
+      theme: ThemeData.dark().copyWith(scaffoldBackgroundColor: kPrimaryColor),
     );
   }
 }
