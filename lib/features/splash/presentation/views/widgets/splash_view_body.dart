@@ -1,4 +1,7 @@
+import 'package:bookly_app_clean_arch/core/utils/go_router.dart';
+import 'package:bookly_app_clean_arch/features/splash/presentation/views/widgets/sliding_text.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class SplashViewBody extends StatefulWidget {
   const SplashViewBody({super.key});
@@ -17,51 +20,10 @@ class _SplashViewBodyState extends State<SplashViewBody>
   void initState() {
     super.initState();
 
-    animationController = AnimationController(
-      vsync: this,
-      duration: const Duration(seconds: 2),
-    );
-    animationSliding = TweenSequence<Offset>([
-      TweenSequenceItem(
-        tween: Tween<Offset>(
-          begin: const Offset(1, 4),
-          end: const Offset(0, 4),
-        ),
-        weight: 50,
-      ),
-      TweenSequenceItem(
-        tween: Tween<Offset>(
-          begin: const Offset(0, 4), // vertical phase start
-          end: const Offset(0, 0), // end position
-        ),
-        weight: 50,
-      ),
-    ]).animate(animationController)
-      ..addListener(() {
-        setState(() {});
-      });
-    animationController.forward();
+    firstAnimation();
 
-    animationController2 = AnimationController(
-      vsync: this,
-      duration: const Duration(seconds: 2),
-    );
-    animationSliding2 = TweenSequence<Offset>([
-      TweenSequenceItem(
-        tween: Tween<Offset>(
-          begin: const Offset(0, 0),
-          end: const Offset(0, 0),
-        ),
-        weight: 50,
-      ),
-    ]).animate(animationController2)
-      ..addListener(() {
-        setState(() {});
-      });
-
-    Future.delayed(const Duration(seconds: 2), () {
-      animationController2.forward();
-    });
+    secondAnimation();
+    navigation();
   }
 
   @override
@@ -83,21 +45,60 @@ class _SplashViewBodyState extends State<SplashViewBody>
         const SizedBox(
           height: 10,
         ),
-        SlideTransition(
-          position: animationSliding2,
-          child: SlideTransition(
-            position: animationSliding,
-            child: const Text(
-              'Read Free Books',
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                letterSpacing: 3,
-                fontSize: 20,
-              ),
-            ),
-          ),
-        ),
+        SlidingText(
+            animationSliding2: animationSliding2,
+            animationSliding: animationSliding),
       ],
     );
+  }
+
+  void firstAnimation() {
+    animationController = AnimationController(
+      vsync: this,
+      duration: const Duration(seconds: 2),
+    );
+    animationSliding = TweenSequence<Offset>([
+      TweenSequenceItem(
+        tween: Tween<Offset>(
+          begin: const Offset(1, 4),
+          end: const Offset(0, 4),
+        ),
+        weight: 50,
+      ),
+      TweenSequenceItem(
+        tween: Tween<Offset>(
+          begin: const Offset(0, 4),
+          end: const Offset(0, 0),
+        ),
+        weight: 50,
+      ),
+    ]).animate(animationController);
+    animationController.forward();
+  }
+
+  void secondAnimation() {
+    animationController2 = AnimationController(
+      vsync: this,
+      duration: const Duration(seconds: 2),
+    );
+    animationSliding2 = TweenSequence<Offset>([
+      TweenSequenceItem(
+        tween: Tween<Offset>(
+          begin: const Offset(0, 0),
+          end: const Offset(0, 0),
+        ),
+        weight: 50,
+      ),
+    ]).animate(animationController2);
+
+    Future.delayed(const Duration(seconds: 2), () {
+      animationController2.forward();
+    });
+  }
+
+  void navigation() {
+    Future.delayed(const Duration(seconds: 4), () {
+      GoRouter.of(context).push(AppRouter.kHomeView);
+    });
   }
 }
