@@ -1,3 +1,4 @@
+import 'package:bookly_app_clean_arch/consts.dart';
 import 'package:bookly_app_clean_arch/core/utils/go_router.dart';
 import 'package:bookly_app_clean_arch/features/splash/presentation/views/widgets/sliding_text.dart';
 import 'package:flutter/material.dart';
@@ -20,10 +21,10 @@ class _SplashViewBodyState extends State<SplashViewBody>
   void initState() {
     super.initState();
 
-    firstAnimation();
+    _firstAnimation();
 
-    secondAnimation();
-    navigation();
+    _secondAnimation();
+    _navigationToHome();
   }
 
   @override
@@ -40,7 +41,7 @@ class _SplashViewBodyState extends State<SplashViewBody>
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         Image.asset(
-          'assets/images/Logo.png',
+          kLogo,
         ),
         const SizedBox(
           height: 10,
@@ -52,7 +53,7 @@ class _SplashViewBodyState extends State<SplashViewBody>
     );
   }
 
-  void firstAnimation() {
+  void _firstAnimation() {
     animationController = AnimationController(
       vsync: this,
       duration: const Duration(seconds: 2),
@@ -76,7 +77,7 @@ class _SplashViewBodyState extends State<SplashViewBody>
     animationController.forward();
   }
 
-  void secondAnimation() {
+  void _secondAnimation() {
     animationController2 = AnimationController(
       vsync: this,
       duration: const Duration(seconds: 2),
@@ -96,7 +97,7 @@ class _SplashViewBodyState extends State<SplashViewBody>
     });
   }
 
-  void navigation() {
+  void _navigationToHome() {
     Future.delayed(const Duration(seconds: 4), () {
       GoRouter.of(context).push(AppRouter.kHomeView);
     });
