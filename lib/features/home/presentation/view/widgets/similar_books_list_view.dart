@@ -9,6 +9,7 @@ class SimilarBooksListView extends StatelessWidget {
     return SizedBox(
         height: 170,
         child: ListView.builder(
+          physics: const BouncingScrollPhysics(),
           itemBuilder: (context, index) => const Padding(
             padding: EdgeInsets.only(right: 8.0, top: 8, bottom: 8),
             child: CustomImage(),
