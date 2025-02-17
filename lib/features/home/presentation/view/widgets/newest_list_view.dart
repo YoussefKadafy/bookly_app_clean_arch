@@ -6,10 +6,13 @@ class NewestListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      itemBuilder: (context, index) => const Padding(
-        padding: EdgeInsetsDirectional.only(bottom: 16.0),
-        child: CustomNewestListViewItem(),
+    return SliverList(
+      delegate: SliverChildBuilderDelegate(
+        childCount: 12,
+        (context, index) => const Padding(
+          padding: EdgeInsetsDirectional.only(bottom: 16.0),
+          child: CustomNewestListViewItem(),
+        ),
       ),
     );
   }

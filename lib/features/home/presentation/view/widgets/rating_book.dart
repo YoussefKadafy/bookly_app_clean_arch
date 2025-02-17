@@ -14,9 +14,15 @@ class RatingBook extends StatelessWidget {
           color: Colors.amber,
           size: 22,
         ),
+        const SizedBox(
+          width: 3,
+        ),
         const Text(
           '4.7',
           style: Styles.textStyle16,
+        ),
+        const SizedBox(
+          width: 3,
         ),
         Text(
           '(298)',
